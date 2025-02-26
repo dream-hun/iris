@@ -6,20 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services - {{ config('app.name') }}</title>
     <meta name="description"
-        content="Professional photography services and portfolio showcase. Capturing life's beautiful moments with artistic vision in canada.">
+        content="Discover our professional photography services in Canada. From weddings to portraits, we offer high-quality photo sessions with custom packages starting at {{ $services->min('price') }}">
     <meta name="keywords"
-        content="photography, professional photographer, photo portfolio, portraits, events, wedding photography,canada">
-    <meta name="author" content="Irispictures">
+        content="photography services, professional photographer, photo sessions, portraits, weddings, events, Canada photography, {{ implode(', ', $services->pluck('name')->toArray()) }}">
+    <meta name="author" content="{{ config('app.name') }}">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Irispictures - Professional Photography">
-    <meta property="og:description" content="Professional photography services and portfolio showcase.">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="Photography Services - {{ config('app.name') }}">
+    <meta property="og:description" content="Professional photography services in Canada. Book your perfect photo session today!">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('images/iris-hero-two.webp') }}">
+
+    <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
-
     <!-- Scripts -->
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="preload" href="https://rsms.me/inter/inter.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://rsms.me/inter/inter.css"></noscript>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 

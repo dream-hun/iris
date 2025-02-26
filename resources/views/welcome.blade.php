@@ -6,9 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Home - {{ config('app.name', 'Laravel') }}</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Professional photography services at Irispicture. Book your photoshoot today and capture your special moments with our expert photographers.">
+    <meta name="keywords" content="photography, professional photographer, photo session, photoshoot, portrait, event photography">
+    <meta name="author" content="{{ config('app.name', 'Irispicture') }}">
 
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Home - {{ config('app.name', 'Irispicture') }}">
+    <meta property="og:description" content="Professional photography services at Irispicture. Transform your moments into lasting memories.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:image" content="{{ asset('images/iris-hero.webp') }}">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Home - {{ config('app.name', 'Irispicture') }}">
+    <meta name="twitter:description" content="Professional photography services at Irispicture. Book your dream photoshoot today.">
+    <meta name="twitter:image" content="{{ asset('images/iris-hero.webp') }}">
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="preload" href="https://rsms.me/inter/inter.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://rsms.me/inter/inter.css"></noscript>
 
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
