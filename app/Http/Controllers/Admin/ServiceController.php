@@ -37,7 +37,12 @@ class ServiceController extends Controller
         $service = Service::create($request->all());
 
         if ($request->input('featured_image', false)) {
-            $service->addMedia(storage_path('tmp/uploads/'.basename($request->input('featured_image'))))->toMediaCollection('featured_image');
+            $filePath = storage_path('tmp/uploads/' . basename($request->input('featured_image')));
+            
+            if (file_exists($filePath)) {
+                $service->addMedia($filePath)
+                    ->toMediaCollection('featured_image');
+            }
         }
 
         if ($media = $request->input('ck-media', false)) {
@@ -59,15 +64,19 @@ class ServiceController extends Controller
         $service->update($request->all());
 
         if ($request->input('featured_image', false)) {
-            $media = $service->getFirstMedia('featured_image');
-            $newFileName = basename($request->input('featured_image'));
+            $filePath = storage_path('tmp/uploads/' . basename($request->input('featured_image')));
+            
+            if (file_exists($filePath)) {
+                $media = $service->getFirstMedia('featured_image');
+                $newFileName = basename($request->input('featured_image'));
 
-            if (! $media || $newFileName !== $media->file_name) {
-                if ($media) {
-                    $media->delete();
+                if (!$media || $newFileName !== $media->file_name) {
+                    if ($media) {
+                        $media->delete();
+                    }
+                    $service->addMedia($filePath)
+                        ->toMediaCollection('featured_image');
                 }
-                $service->addMedia(storage_path('tmp/uploads/'.$newFileName))
-                    ->toMediaCollection('featured_image');
             }
         } elseif ($service->getFirstMedia('featured_image')) {
             $service->getFirstMedia('featured_image')->delete();
