@@ -135,11 +135,10 @@
 
                     <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                         <div>
-                            <label for="name"
-                                class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
+                            <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
                             <div class="mt-2.5">
                                 <input type="text" name="name" id="name" value="{{ old('name') }}"
-                                    required
+                                    required minlength="3" maxlength="50"
                                     class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('name') ring-red-500 @enderror">
                                 @error('name')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -148,8 +147,7 @@
                         </div>
 
                         <div>
-                            <label for="email"
-                                class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
+                            <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
                             <div class="mt-2.5">
                                 <input type="email" name="email" id="email" value="{{ old('email') }}"
                                     required
@@ -161,30 +159,27 @@
                         </div>
 
                         <div class="sm:col-span-2">
-                            <label for="phone" class="block text-sm font-semibold leading-6 text-gray-900">Phone
+                            <label for="mobile" class="block text-sm font-semibold leading-6 text-gray-900">Phone
                                 number</label>
                             <div class="mt-2.5">
-                                <input type="tel" name="phone" id="phone" value="{{ old('phone') }}"
-                                    required
-                                    class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('phone') ring-red-500 @enderror">
-                                @error('phone')
+                                <input type="tel" name="mobile" id="mobile" value="{{ old('mobile') }}"
+                                    required minlength="10" maxlength="15"
+                                    class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('mobile') ring-red-500 @enderror">
+                                @error('mobile')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
                         </div>
 
                         <div class="sm:col-span-2">
-                            <label for="service_id"
-                                class="block text-sm font-semibold leading-6 text-gray-900">Service</label>
+                            <label for="service_id" class="block text-sm font-semibold leading-6 text-gray-900">Service</label>
                             <div class="mt-2.5">
                                 <select name="service_id" id="service_id" required
                                     class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('service_id') ring-red-500 @enderror">
                                     <option value="">Select a service</option>
-                                    @foreach ($services as $service)
-                                        <option value="{{ $service->id }}"
-                                            {{ old('service_id') == $service->id ? 'selected' : '' }}>
-                                            {{ $service->name }} - {{ $service->time }} -
-                                            {{ $service->formatedPrice() }}
+                                    @foreach($services as $service)
+                                        <option value="{{ $service->id }}" {{ old('service_id') == $service->id ? 'selected' : '' }}>
+                                            {{ $service->name }} ({{ $service->time }} min - ${{ $service->price }})
                                         </option>
                                     @endforeach
                                 </select>
@@ -194,30 +189,17 @@
                             </div>
                         </div>
 
-                        <div>
-                            <label for="date"
-                                class="block text-sm font-semibold leading-6 text-gray-900">Date</label>
+                        <div class="sm:col-span-2">
+                            <label for="date_and_time" class="block text-sm font-semibold leading-6 text-gray-900">Date and Time</label>
                             <div class="mt-2.5">
-                                <x-text-input type="date" name="date" id="date" class="block w-full"
-                                    value="{{ old('date') }}" required min="{{ date('Y-m-d') }}" />
-                                @error('date')
+                                <input type="datetime-local" name="date_and_time" id="date_and_time" 
+                                    value="{{ old('date_and_time') }}"
+                                    required
+                                    min="{{ date('Y-m-d\TH:i') }}"
+                                    class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('date_and_time') ring-red-500 @enderror">
+                                @error('date_and_time')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
-
-                            </div>
-                        </div>
-
-                        <div>
-                            <label for="time"
-                                class="block text-sm font-semibold leading-6 text-gray-900">Time</label>
-                            <div class="mt-2.5">
-                                <input type="time" name="time" id="time" value="{{ old('time') }}"
-                                    required min="09:00" max="17:00" step="3600"
-                                    class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('time') ring-red-500 @enderror">
-                                @error('time')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                                <p class="mt-1 text-sm text-gray-500">Business hours are 9:00 AM to 5:00 PM</p>
                             </div>
                         </div>
                     </div>
@@ -225,7 +207,7 @@
                     <div class="mt-8 flex justify-end">
                         <button type="submit"
                             class="rounded-md bg-yellow-400 px-3.5 py-2.5 text-center text-sm font-semibold text-black shadow-sm hover:text-white hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-800">
-                            Book Appointment
+                            Book Now
                         </button>
                     </div>
                 </div>

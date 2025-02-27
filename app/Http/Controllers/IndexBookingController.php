@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use App\Models\Service;
 use Illuminate\Http\Request;
 
@@ -18,13 +19,19 @@ class IndexBookingController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'service_id' => 'required|integer',
+            'name' => 'required|required|min:3|max:50',
             'email' => 'required|email',
-            'phone' => 'required',
-            'date' => 'required',
-            'time' => 'required',
-            'message' => 'required',
+            'mobile' => 'required|min:10|max:15',
+            'date_and_time' => 'required',
+
         ]);
+
+        try {
+            $booking = Booking::create($request->merge(['status' => 'pending'])->all());
+        } catch (\Exception $e) {
+            return redirect()->route('booking.index')->with('error', 'Failed to create booking. Please try again.');
+        }
 
         return redirect()->route('booking.index')->with('success', 'Booking request sent successfully.');
     }
