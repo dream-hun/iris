@@ -198,12 +198,11 @@
                             <label for="date_and_time"
                                 class="block text-sm font-semibold leading-6 text-gray-900">Date and Time</label>
                             <div class="mt-2.5">
-                                <input type="text" name="date_and_time" id="date_and_time"
+                                <input type="datetime-local" name="date_and_time" id="date_and_time"
                                     value="{{ old('date_and_time') }}"
-                                    placeholder="{{ config('panel.date_format').' '.config('panel.time_format') }}"
                                     required
+                                    min="{{ $minDate }}"
                                     class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('date_and_time') ring-red-500 @enderror">
-                                <p class="mt-1 text-sm text-gray-500">Format: {{ config('panel.date_format').' '.config('panel.time_format') }}</p>
                                 @error('date_and_time')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
