@@ -179,7 +179,7 @@
                                     <option value="">Select a service</option>
                                     @foreach($services as $service)
                                         <option value="{{ $service->id }}" {{ old('service_id') == $service->id ? 'selected' : '' }}>
-                                            {{ $service->name }} ({{ $service->time }} min - ${{ $service->price }})
+                                            {{ $service->name }} ({{ $service->time }}  - ${{ $service->formattedPrice() }})
                                         </option>
                                     @endforeach
                                 </select>
@@ -192,7 +192,7 @@
                         <div class="sm:col-span-2">
                             <label for="date_and_time" class="block text-sm font-semibold leading-6 text-gray-900">Date and Time</label>
                             <div class="mt-2.5">
-                                <input type="datetime-local" name="date_and_time" id="date_and_time" 
+                                <input type="datetime-local" name="date_and_time" id="date_and_time"
                                     value="{{ old('date_and_time') }}"
                                     required
                                     min="{{ date('Y-m-d\TH:i') }}"
