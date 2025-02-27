@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Service;
+use App\Models\User;
+use App\Notifications\CustomerBookingNotification;
+use App\Notifications\NewBookingNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -48,6 +51,11 @@ class IndexBookingController extends Controller
             )->format(config('panel.date_format').' '.config('panel.time_format'));
 
             $booking = Booking::create(array_merge($validated, ['status' => 'pending']));
+
+            
+            User::all()->each(function ($user) use ($booking) {
+                $user->notify(new NewBookingNotification($booking));
+            });
 
             return redirect()->route('booking.index')->with('success', 'Booking request sent successfully.');
         } catch (\Exception $e) {

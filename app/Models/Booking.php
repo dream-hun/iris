@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Notifications\CustomerBookingNotification;
 use Carbon\Carbon;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Str;
 
 class Booking extends Model
@@ -64,6 +66,16 @@ class Booking extends Model
         parent::boot();
         static::creating(function ($model) {
             $model->uuid = (string) Str::uuid();
+        });
+    }
+
+    public static function booting()
+    {
+        self::updated(function (Booking $booking) {
+            if ($booking->isDirty('status') && in_array($booking->status, ['accepted', 'rejected'])) {
+                Notification::route('mail', $booking->email)
+                    ->notifyNow(new CustomerBookingNotification($booking->status));
+            }
         });
     }
 }
