@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class IndexBookingController extends Controller
 {
@@ -23,12 +24,17 @@ class IndexBookingController extends Controller
             'name' => 'required|required|min:3|max:50',
             'email' => 'required|email',
             'mobile' => 'required|min:10|max:15',
-            'date_and_time' => 'required',
-
+            'date_and_time' => 'required|date',
         ]);
 
         try {
-            $booking = Booking::create($request->merge(['status' => 'pending'])->all());
+            $date = Carbon::createFromFormat('Y-m-d\TH:i', $request->date_and_time)
+                ->format(config('panel.date_format') . ' ' . config('panel.time_format'));
+
+            $booking = Booking::create($request->merge([
+                'status' => 'pending',
+                'date_and_time' => $date,
+            ])->all());
         } catch (\Exception $e) {
             return redirect()->route('booking.index')->with('error', 'Failed to create booking. Please try again.');
         }

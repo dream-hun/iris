@@ -199,7 +199,8 @@
                                 class="block text-sm font-semibold leading-6 text-gray-900">Date and Time</label>
                             <div class="mt-2.5">
                                 <input type="datetime-local" name="date_and_time" id="date_and_time"
-                                    value="{{ old('date_and_time') }}" required min="{{ date('Y-m-d\TH:i') }}"
+                                    value="{{ old('date_and_time') ? \Carbon\Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), old('date_and_time'))->format('Y-m-d\TH:i') : '' }}"
+                                    required min="{{ date('Y-m-d\TH:i') }}"
                                     class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('date_and_time') ring-red-500 @enderror">
                                 @error('date_and_time')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
