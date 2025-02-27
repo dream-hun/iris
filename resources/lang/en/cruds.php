@@ -135,9 +135,9 @@ return [
             'deleted_at_helper'    => ' ',
         ],
     ],
-    'seeting' => [
-        'title'          => 'Seeting',
-        'title_singular' => 'Seeting',
+    'setting' => [
+        'title'          => 'Setting',
+        'title_singular' => 'Setting',
         'fields'         => [
             'id'                => 'ID',
             'id_helper'         => ' ',
