@@ -10,7 +10,7 @@ class IndexBookingController extends Controller
 {
     public function index()
     {
-        $services = Service::select(['name', 'time', 'price'])
+        $services = Service::select(['name', 'duration', 'price'])
             ->get();
 
         return view('booking.index', ['services' => $services]);

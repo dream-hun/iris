@@ -135,7 +135,8 @@
 
                     <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
                         <div>
-                            <label for="name" class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
+                            <label for="name"
+                                class="block text-sm font-semibold leading-6 text-gray-900">Name</label>
                             <div class="mt-2.5">
                                 <input type="text" name="name" id="name" value="{{ old('name') }}"
                                     required minlength="3" maxlength="50"
@@ -147,7 +148,8 @@
                         </div>
 
                         <div>
-                            <label for="email" class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
+                            <label for="email"
+                                class="block text-sm font-semibold leading-6 text-gray-900">Email</label>
                             <div class="mt-2.5">
                                 <input type="email" name="email" id="email" value="{{ old('email') }}"
                                     required
@@ -172,14 +174,17 @@
                         </div>
 
                         <div class="sm:col-span-2">
-                            <label for="service_id" class="block text-sm font-semibold leading-6 text-gray-900">Service</label>
+                            <label for="service_id"
+                                class="block text-sm font-semibold leading-6 text-gray-900">Service</label>
                             <div class="mt-2.5">
                                 <select name="service_id" id="service_id" required
                                     class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('service_id') ring-red-500 @enderror">
                                     <option value="">Select a service</option>
-                                    @foreach($services as $service)
-                                        <option value="{{ $service->id }}" {{ old('service_id') == $service->id ? 'selected' : '' }}>
-                                            {{ $service->name }} ({{ $service->duration }}  /{{ $service->formatedPrice() }})
+                                    @foreach ($services as $service)
+                                        <option value="{{ $service->id }}"
+                                            {{ old('service_id') == $service->id ? 'selected' : '' }}>
+                                            {{ $service->name }} {{ $service->duration }} (
+                                            / {{ $service->formatedPrice() }})
                                         </option>
                                     @endforeach
                                 </select>
@@ -190,12 +195,11 @@
                         </div>
 
                         <div class="sm:col-span-2">
-                            <label for="date_and_time" class="block text-sm font-semibold leading-6 text-gray-900">Date and Time</label>
+                            <label for="date_and_time"
+                                class="block text-sm font-semibold leading-6 text-gray-900">Date and Time</label>
                             <div class="mt-2.5">
                                 <input type="datetime-local" name="date_and_time" id="date_and_time"
-                                    value="{{ old('date_and_time') }}"
-                                    required
-                                    min="{{ date('Y-m-d\TH:i') }}"
+                                    value="{{ old('date_and_time') }}" required min="{{ date('Y-m-d\TH:i') }}"
                                     class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('date_and_time') ring-red-500 @enderror">
                                 @error('date_and_time')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
