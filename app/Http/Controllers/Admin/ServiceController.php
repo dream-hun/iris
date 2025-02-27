@@ -37,8 +37,8 @@ class ServiceController extends Controller
         $service = Service::create($request->all());
 
         if ($request->input('featured_image', false)) {
-            $filePath = storage_path('tmp/uploads/' . basename($request->input('featured_image')));
-            
+            $filePath = storage_path('tmp/uploads/'.basename($request->input('featured_image')));
+
             if (file_exists($filePath)) {
                 $service->addMedia($filePath)
                     ->toMediaCollection('featured_image');
@@ -64,13 +64,13 @@ class ServiceController extends Controller
         $service->update($request->all());
 
         if ($request->input('featured_image', false)) {
-            $filePath = storage_path('tmp/uploads/' . basename($request->input('featured_image')));
-            
+            $filePath = storage_path('tmp/uploads/'.basename($request->input('featured_image')));
+
             if (file_exists($filePath)) {
                 $media = $service->getFirstMedia('featured_image');
                 $newFileName = basename($request->input('featured_image'));
 
-                if (!$media || $newFileName !== $media->file_name) {
+                if (! $media || $newFileName !== $media->file_name) {
                     if ($media) {
                         $media->delete();
                     }

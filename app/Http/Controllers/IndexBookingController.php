@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Service;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class IndexBookingController extends Controller
 {
@@ -18,7 +18,7 @@ class IndexBookingController extends Controller
 
         return view('booking.index', [
             'services' => $services,
-            'minDate' => $minDate
+            'minDate' => $minDate,
         ]);
     }
 
@@ -45,22 +45,16 @@ class IndexBookingController extends Controller
             $validated['date_and_time'] = Carbon::createFromFormat(
                 'Y-m-d\TH:i',
                 $validated['date_and_time']
-            )->format(config('panel.date_format') . ' ' . config('panel.time_format'));
-
-            \Log::info('Booking request data:', $request->all());
+            )->format(config('panel.date_format').' '.config('panel.time_format'));
 
             $booking = Booking::create(array_merge($validated, ['status' => 'pending']));
-            
-            \Log::info('Booking created:', $booking->toArray());
 
             return redirect()->route('booking.index')->with('success', 'Booking request sent successfully.');
         } catch (\Exception $e) {
-            \Log::error('Booking creation failed: ' . $e->getMessage());
-            \Log::error($e->getTraceAsString());
-            
+
             return redirect()->route('booking.index')
                 ->withInput()
-                ->with('error', 'Failed to create booking: ' . $e->getMessage());
+                ->with('error', 'Failed to create booking: '.$e->getMessage());
         }
     }
 }
