@@ -24,17 +24,14 @@ class IndexBookingController extends Controller
             'name' => 'required|required|min:3|max:50',
             'email' => 'required|email',
             'mobile' => 'required|min:10|max:15',
-            'date_and_time' => 'required|date',
+            'date_and_time' => [
+                'required',
+                'date_format:'.config('panel.date_format').' '.config('panel.time_format'),
+            ],
         ]);
 
         try {
-            $date = Carbon::createFromFormat('Y-m-d\TH:i', $request->date_and_time)
-                ->format(config('panel.date_format') . ' ' . config('panel.time_format'));
-
-            $booking = Booking::create($request->merge([
-                'status' => 'pending',
-                'date_and_time' => $date,
-            ])->all());
+            $booking = Booking::create($request->merge(['status' => 'pending'])->all());
         } catch (\Exception $e) {
             return redirect()->route('booking.index')->with('error', 'Failed to create booking. Please try again.');
         }
