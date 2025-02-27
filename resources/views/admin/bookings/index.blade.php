@@ -32,9 +32,6 @@
                                 {{ trans('cruds.service.fields.price') }}
                             </th>
                             <th>
-                                {{ trans('cruds.service.fields.time') }}
-                            </th>
-                            <th>
                                 {{ trans('cruds.booking.fields.name') }}
                             </th>
                             <th>
@@ -69,9 +66,7 @@
                                 <td>
                                     {{ $booking->service->price ?? '' }}
                                 </td>
-                                <td>
-                                    {{ $booking->service->time ?? '' }}
-                                </td>
+
                                 <td>
                                     {{ $booking->name ?? '' }}
                                 </td>
