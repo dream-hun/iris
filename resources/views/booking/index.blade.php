@@ -179,7 +179,7 @@
                                     <option value="">Select a service</option>
                                     @foreach($services as $service)
                                         <option value="{{ $service->id }}" {{ old('service_id') == $service->id ? 'selected' : '' }}>
-                                            {{ $service->name }} ({{ $service->time }}  - ${{ $service->formattedPrice() }})
+                                            {{ $service->name }} ({{ $service->time }}  - ${{ $service->formatedPrice() }})
                                         </option>
                                     @endforeach
                                 </select>
