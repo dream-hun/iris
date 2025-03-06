@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Gallery;
 use App\Models\Service;
 
 class IndexController extends Controller
@@ -11,8 +12,9 @@ class IndexController extends Controller
      */
     public function index()
     {
+        $images=Gallery::with('media')->where('positioning','hero')->get();
 
-        return view('welcome');
+        return view('welcome',['images'=>$images]);
     }
 
     public function services()

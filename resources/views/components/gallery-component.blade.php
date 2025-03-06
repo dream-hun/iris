@@ -2,8 +2,18 @@
 
 <div {{ $attributes->merge(['class' => 'mx-auto max-w-7xl py-24', 'id' => $id]) }}>
     <div class="text-center">
-        <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">Gallery</h2>
-        <p class="mt-4 text-lg text-gray-500">A collection of some of my best work</p>
+        <h2 class="text-3xl font-extrabold text-gray-900 sm:text-4xl">@if ($content->gallery_or_portfolio_title)
+                {{ $content->gallery_or_portfolio_title }}
+            @else
+                Gallery
+            @endif</h2>
+        <p class="mt-4 text-lg text-gray-500">
+            @if ($content->gallery_or_portfolio_description)
+                {{ $content->gallery_or_portfolio_description }}
+            @else
+                A collection of some of my best work
+            @endif
+        </p>
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 mt-5">
             @foreach($galleries as $index => $gallery)
                 <div class="group relative overflow-hidden {{ $index === 0 || $index === 3 ? 'col-span-2 row-span-2' : ($index === 1 ? 'col-span-1 row-span-2' : 'col-span-1 row-span-1') }}">

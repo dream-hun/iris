@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BookingController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\PermissionsController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\ServiceController;
@@ -30,6 +31,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::resource('/settings', SettingController::class);
     Route::resource('/users', UsersController::class);
     Route::resource('/bookings', BookingController::class);
+    ROute::resource('/pages', PageController::class)->except(['show', 'destroy']);
+    Route::post('pages/media', [PageController::class, 'storeMedia'])->name('pages.storeMedia');
+    Route::post('pages/ckmedia', [PageController::class, 'storeCKEditorImages'])->name('pages.storeCKEditorImages');
     Route::post('galleries/media', [GalleryController::class, 'storeMedia'])->name('galleries.storeMedia');
     Route::resource('/galleries', GalleryController::class);
     Route::post('services/media', [ServiceController::class, 'storeMedia'])->name('services.storeMedia');

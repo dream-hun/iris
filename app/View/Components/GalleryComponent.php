@@ -13,6 +13,7 @@ class GalleryComponent extends Component
     {
         $galleries = Gallery::with('media')
             ->where('status', 'active')
+            ->where('positioning', 'gallery')
             ->get();
 
         return view('components.gallery-component', ['galleries' => $galleries]);

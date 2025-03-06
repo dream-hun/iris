@@ -4,43 +4,42 @@ namespace App\Models;
 
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Gallery extends Model implements HasMedia
+class Page extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    public $table = 'galleries';
+    public $table = 'pages';
 
     protected $appends = [
-        'featured_image',
+        'about_us_image',
     ];
 
     protected array $dates = [
         'created_at',
         'updated_at',
-        'deleted_at',
-    ];
-
-    public const STATUS_SELECT = [
-        'active' => 'Activate',
-        'inactive' => 'Deactivate',
-    ];
-
-    public const POSITIONING_SELECT = [
-        'hero' => 'Below Home Section',
-        'gallery' => 'Gallery',
     ];
 
     protected $fillable = [
-        'title',
-        'location',
-        'status',
-        'positioning',
+        'home_title',
+        'home_description',
+        'home_button_text',
+        'about_us_header',
+        'about_us_description',
+        'mission_header',
+        'mission_description',
+        'vision_header',
+        'vision_description',
+        'gallery_or_portfolio_title',
+        'gallery_or_portfolio_description',
+        'booking_title',
+        'booking_title_description',
+        'booking_title_address',
+        'booking_description_address',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -57,9 +56,9 @@ class Gallery extends Model implements HasMedia
         $this->addMediaConversion('preview')->fit(Fit::Contain, 'crop', 120, 120);
     }
 
-    public function getFeaturedImageAttribute()
+    public function getAboutUsImageAttribute()
     {
-        $file = $this->getMedia('featured_image')->last();
+        $file = $this->getMedia('about_us_image')->last();
         if ($file) {
             $file->url = $file->getUrl();
             $file->thumbnail = $file->getUrl('thumb');
@@ -67,13 +66,5 @@ class Gallery extends Model implements HasMedia
         }
 
         return $file;
-    }
-
-    public static function boot(): void
-    {
-        parent::boot();
-        static::creating(function ($model) {
-            $model->uuid = (string) Str::uuid();
-        });
     }
 }
