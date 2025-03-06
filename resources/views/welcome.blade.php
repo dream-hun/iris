@@ -25,7 +25,6 @@
     <meta name="twitter:image" content="{{ asset('images/iris-hero.webp') }}">
     <!-- Fonts -->
     <link rel="preload" href="https://rsms.me/inter/inter.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://rsms.me/inter/inter.css"></noscript>
 
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -54,7 +53,7 @@
             <div class="relative mb-8">
                 <p class="text-gray-600 text-lg mb-8">
                     @if ($content->home_description)
-                        {{ $content->home_description }}
+                        {!! $content->home_description !!}
                     @else
                       Where Every Moment Becomes a Masterpiece!
 
