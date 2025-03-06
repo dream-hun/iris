@@ -12,9 +12,9 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $images=Gallery::with('media')->where('positioning','hero')->get();
+        $images = Gallery::with('media')->where('positioning', 'hero')->get();
 
-        return view('welcome',['images'=>$images]);
+        return view('welcome', ['images' => $images]);
     }
 
     public function services()

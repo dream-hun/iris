@@ -9,6 +9,9 @@ use App\Http\Requests\Admin\UpdatePageRequest;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Spatie\Image\Enums\Fit;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -37,7 +40,13 @@ class PageController extends Controller
         $page = Page::create($request->all());
 
         if ($request->input('about_us_image', false)) {
-            $page->addMedia(storage_path('tmp/uploads/'.basename($request->input('about_us_image'))))->toMediaCollection('about_us_image');
+            $page->addMedia(storage_path('tmp/uploads/'.basename($request->input('about_us_image'))))
+                ->withManipulations([
+                    '*' => function ($image) {
+                        $image->fit(Fit::Contain, 200, 200);
+                    }
+                ])
+                ->toMediaCollection('about_us_image');
         }
 
         if ($media = $request->input('ck-media', false)) {
@@ -54,6 +63,10 @@ class PageController extends Controller
         return view('admin.pages.edit', compact('page'));
     }
 
+    /**
+     * @throws FileDoesNotExist
+     * @throws FileIsTooBig
+     */
     public function update(UpdatePageRequest $request, Page $page)
     {
         $page->update($request->all());
@@ -63,7 +76,14 @@ class PageController extends Controller
                 if ($page->about_us_image) {
                     $page->about_us_image->delete();
                 }
-                $page->addMedia(storage_path('tmp/uploads/'.basename($request->input('about_us_image'))))->toMediaCollection('about_us_image');
+                $page->addMedia(storage_path('tmp/uploads/'.basename($request->input('about_us_image'))))
+                    ->withManipulations([
+                        '*' => function ($image) {
+                            $image->fit(Fit::Contain, 200, 200);
+                        }
+                    ])
+
+                    ->toMediaCollection('about_us_image');
             }
         } elseif ($page->about_us_image) {
             $page->about_us_image->delete();

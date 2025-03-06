@@ -107,8 +107,8 @@ return [
             'updated_at_helper' => ' ',
             'deleted_at' => 'Deleted at',
             'deleted_at_helper' => ' ',
-            'positioning'           => 'Positioning',
-            'positioning_helper'    => ' ',
+            'positioning' => 'Positioning',
+            'positioning_helper' => ' ',
         ],
     ],
     'booking' => [

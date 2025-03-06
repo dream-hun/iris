@@ -53,8 +53,8 @@ class Gallery extends Model implements HasMedia
 
     public function registerMediaConversions(?Media $media = null): void
     {
-        $this->addMediaConversion('thumb')->fit(Fit::Contain, 'crop', 50, 50);
-        $this->addMediaConversion('preview')->fit(Fit::Contain, 'crop', 120, 120);
+        $this->addMediaConversion('thumb')->fit(Fit::Contain, 120, 120)->nonQueued();
+        $this->addMediaConversion('preview')->fit(Fit::Contain, 300, 300)->nonQueued();
     }
 
     public function getFeaturedImageAttribute()

@@ -8,6 +8,9 @@ use App\Http\Requests\Admin\StoreGalleryRequest;
 use App\Http\Requests\Admin\UpdateGalleryRequest;
 use App\Models\Gallery;
 use Illuminate\Support\Facades\Gate;
+
+use Spatie\Image\Enums\Fit;
+
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -36,7 +39,13 @@ class GalleryController extends Controller
         $gallery = Gallery::create($request->all());
 
         if ($request->input('featured_image', false)) {
-            $gallery->addMedia(storage_path('tmp/uploads/'.basename($request->input('featured_image'))))->toMediaCollection('featured_image');
+            $gallery->addMedia(storage_path('tmp/uploads/'.basename($request->input('featured_image'))))
+                ->withManipulations([
+                    '*' => function ($image) {
+                        $image->fit(Fit::Contain, 200, 200);
+                    }
+                ])
+                ->toMediaCollection('featured_image');
         }
 
         if ($media = $request->input('ck-media', false)) {

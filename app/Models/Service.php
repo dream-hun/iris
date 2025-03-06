@@ -7,6 +7,7 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -36,18 +37,18 @@ class Service extends Model implements HasMedia
         'deleted_at',
     ];
 
-    protected function serializeDate(DateTimeInterface $date)
+    protected function serializeDate(DateTimeInterface $date): string
     {
         return $date->format('Y-m-d H:i:s');
     }
 
     public function registerMediaConversions(?Media $media = null): void
     {
-        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
-        $this->addMediaConversion('preview')->fit('crop', 120, 120);
+        $this->addMediaConversion('thumb')->fit(Fit::Contain, 50, 50);
+        $this->addMediaConversion('preview')->fit(Fit::Contain, 120, 120);
     }
 
-    public function getFeaturedImageAttribute()
+    public function getFeaturedImageAttribute(): ?array
     {
         $file = $this->getMedia('featured_image')->last();
 
@@ -58,7 +59,7 @@ class Service extends Model implements HasMedia
         ] : null;
     }
 
-    public static function boot()
+    public static function boot(): void
     {
         parent::boot();
         static::creating(function ($model) {
@@ -66,7 +67,7 @@ class Service extends Model implements HasMedia
         });
     }
 
-    public function formatedPrice()
+    public function formatedPrice(): Money
     {
         return Money::CAD($this->price);
     }
