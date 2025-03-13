@@ -73,10 +73,10 @@
                     Where Every Moment Becomes a Masterpiece!
                 </p>
             </div>
-            <button
+            <a href="{{ route('booking.index') }}"
                 class="bg-yellow-400 text-black px-8 py-3 rounded-full hover:bg-yellow-300 transition-colors duration-200">
                 Book Your Photoshoot Today!
-            </button>
+            </a>
         </div>
     </div>
 
@@ -103,6 +103,9 @@
                     <!-- Service Details -->
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">{{ $service->name }}</h3>
+                        <div class="text-sm text-slate-600 mb-8">
+                            <p>{{ $service->description }}</p>
+                        </div>
                         <div class="flex justify-between items-center">
                             <span class="text-lg font-bold text-yellow-500">{{ $service->formatedPrice() }}</span>
                             <span class="text-gray-600 dark:text-gray-400">{{ $service->duration }}</span>
