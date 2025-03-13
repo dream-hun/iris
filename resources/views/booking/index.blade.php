@@ -17,6 +17,24 @@
     <meta property="og:url" content="{{ url()->current() }}">
     <link rel="canonical" href="{{ url()->current() }}">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KWRD2MX2');
+    </script>
+    <!-- End Google Tag Manager -->
 
     <!-- Scripts -->
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
@@ -24,6 +42,10 @@
 </head>
 
 <body class="font-sans antialiased dark:bg-gray-900 dark:text-white">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWRD2MX2" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <x-navigation-bar-component />
     <div class="relative backdrop-blur-md text-black min-[520px]">
         <!-- Background Image -->
@@ -36,8 +58,7 @@
             <h1 class="text-5xl md:text-6xl font-bold mb-4">
                 @if ($content->booking_title)
                     {{ $content->booking_title }}
-                    @else
-
+                @else
                     Book a session with us today
                 @endif
 
@@ -78,17 +99,17 @@
                         </svg>
                     </div>
                     <h2 class="text-3xl font-bold tracking-tight text-gray-900">
-                        @if($content->booking_title_address)
+                        @if ($content->booking_title_address)
                             {{ $content->booking_title_address }}
                         @else
-                        Get in touch
+                            Get in touch
                         @endif
                     </h2>
                     <p class="mt-6 text-lg leading-8 text-gray-600">
                         @if ($content->booking_description_address)
                             {{ $content->booking_description_address }}
                         @else
-                        We are here to help you with any questions you may have. Feel free to reach out to us.
+                            We are here to help you with any questions you may have. Feel free to reach out to us.
                         @endif
                     </p>
                     <dl class="mt-10 space-y-4 text-base leading-7 text-gray-600">
@@ -113,7 +134,7 @@
                                 </svg>
                             </dt>
                             <dd><a class="hover:text-gray-900"
-                                    href="tel:{{$setting->mobile ?? ''}}">{{ $setting->mobile ?? '' }}</a>
+                                    href="tel:{{ $setting->mobile ?? '' }}">{{ $setting->mobile ?? '' }}</a>
                             </dd>
                         </div>
                         <div class="flex gap-x-4">
@@ -219,9 +240,7 @@
                                 class="block text-sm font-semibold leading-6 text-gray-900">Date and Time</label>
                             <div class="mt-2.5">
                                 <input type="datetime-local" name="date_and_time" id="date_and_time"
-                                    value="{{ old('date_and_time') }}"
-                                    required
-                                    min="{{ $minDate }}"
+                                    value="{{ old('date_and_time') }}" required min="{{ $minDate }}"
                                     class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 @error('date_and_time') ring-red-500 @enderror">
                                 @error('date_and_time')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

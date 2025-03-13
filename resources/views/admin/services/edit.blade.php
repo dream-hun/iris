@@ -44,6 +44,15 @@
                     <span class="help-block">{{ trans('cruds.service.fields.featured_image_helper') }}</span>
                 </div>
                 <div class="form-group">
+                    <label for="about_us_description">Service Description</label>
+                    <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $service->description) }}</textarea>
+                    @if($errors->has('description'))
+                        <div class="invalid-feedback">
+                            {{ $errors->first('description') }}
+                        </div>
+                    @endif
+                </div>
+                <div class="form-group">
                     <label class="required" for="duration">{{ trans('cruds.service.fields.duration') }}</label>
                     <input class="form-control {{ $errors->has('duration') ? 'is-invalid' : '' }}" type="text"
                         name="duration" id="duration" value="{{ old('duration', $service->duration) }}" required>

@@ -31,6 +31,7 @@ class Service extends Model implements HasMedia
     protected $fillable = [
         'name',
         'price',
+        'description',
         'duration',
         'created_at',
         'updated_at',

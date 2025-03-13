@@ -25,13 +25,15 @@ class StoreServiceRequest extends FormRequest
                 'min:-2147483648',
                 'max:2147483647',
             ],
-            'featured_image' => [
-                'required',
-            ],
             'duration' => [
                 'required',
                 'string',
             ],
+            'description'=>[
+                'required',
+                'max:500',
+                'string'
+            ]
         ];
     }
 }

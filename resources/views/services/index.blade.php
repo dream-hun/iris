@@ -14,7 +14,8 @@
 
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="Photography Services - {{ config('app.name') }}">
-    <meta property="og:description" content="Professional photography services in Canada. Book your perfect photo session today!">
+    <meta property="og:description"
+        content="Professional photography services in Canada. Book your perfect photo session today!">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="{{ asset('images/iris-hero-two.webp') }}">
@@ -23,17 +24,43 @@
     <link rel="canonical" href="{{ url()->current() }}">
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     <!-- Scripts -->
-    <link rel="preload" href="https://rsms.me/inter/inter.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://rsms.me/inter/inter.css"></noscript>
+    <link rel="preload" href="https://rsms.me/inter/inter.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    </noscript>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KWRD2MX2');
+    </script>
+    <!-- End Google Tag Manager -->
 </head>
 
 <body class="font-sans antialiased dark:bg-gray-900 dark:text-white">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWRD2MX2" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <x-navigation-bar-component />
     <div class="relative backdrop-blur-md text-black min-[620px] py-24">
         <!-- Background Image -->
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('images/stripes.svg') }}" alt="Background" class="w-full h-full object-cover opacity-50">
+            <img src="{{ asset('images/stripes.svg') }}" alt="Background"
+                class="w-full h-full object-cover opacity-50">
         </div>
 
         <!-- Content -->

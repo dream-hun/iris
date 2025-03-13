@@ -7,13 +7,16 @@
 
     <title>Home - {{ config('app.name', 'Laravel') }}</title>
     <!-- SEO Meta Tags -->
-    <meta name="description" content="Professional photography services at Irispicture. Book your photoshoot today and capture your special moments with our expert photographers.">
-    <meta name="keywords" content="photography, professional photographer, photo session, photoshoot, portrait, event photography">
+    <meta name="description"
+        content="Professional photography services at Irispicture. Book your photoshoot today and capture your special moments with our expert photographers.">
+    <meta name="keywords"
+        content="photography, professional photographer, photo session, photoshoot, portrait, event photography">
     <meta name="author" content="{{ config('app.name', 'Irispicture') }}">
 
     <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:title" content="Home - {{ config('app.name', 'Irispicture') }}">
-    <meta property="og:description" content="Professional photography services at Irispicture. Transform your moments into lasting memories.">
+    <meta property="og:description"
+        content="Professional photography services at Irispicture. Transform your moments into lasting memories.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="{{ asset('images/iris-hero.webp') }}">
@@ -21,17 +24,41 @@
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Home - {{ config('app.name', 'Irispicture') }}">
-    <meta name="twitter:description" content="Professional photography services at Irispicture. Book your dream photoshoot today.">
+    <meta name="twitter:description"
+        content="Professional photography services at Irispicture. Book your dream photoshoot today.">
     <meta name="twitter:image" content="{{ asset('images/iris-hero.webp') }}">
     <!-- Fonts -->
-    <link rel="preload" href="https://rsms.me/inter/inter.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://rsms.me/inter/inter.css" as="style"
+        onload="this.onload=null;this.rel='stylesheet'">
 
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-KWRD2MX2');
+    </script>
+    <!-- End Google Tag Manager -->
 
 </head>
 
 <body class="font-sans antialiased">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KWRD2MX2" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <x-navigation-bar-component />
 
     <div class="relative backdrop-blur-md text-black min-[520px] py-32">
@@ -47,7 +74,6 @@
                     {{ $content->home_title }}
                 @else
                     Welcome to Irispicture
-
                 @endif
             </h1>
             <div class="relative mb-8">
@@ -55,8 +81,7 @@
                     @if ($content->home_description)
                         {!! $content->home_description !!}
                     @else
-                      Where Every Moment Becomes a Masterpiece!
-
+                        Where Every Moment Becomes a Masterpiece!
                     @endif
 
                 </p>
@@ -67,7 +92,6 @@
                     {{ $content->home_button_text }}
                 @else
                     Book Your Photoshoot Today!
-
                 @endif
 
             </a>
@@ -81,18 +105,22 @@
         @forelse($images as $image)
             <!-- Large Image 1 -->
             <div class="aspect-w-4 aspect-h-5">
-                <img src="{{ $image->getFirstMediaUrl('featured_image') }}" alt="{{$image->title}}" class="w-full h-auto object-cover" />
+                <img src="{{ $image->getFirstMediaUrl('featured_image') }}" alt="{{ $image->title }}"
+                    class="w-full h-auto object-cover" />
             </div>
         @empty
             <!-- Large Image 1 -->
             <div class="aspect-w-4 aspect-h-5">
-                <img src="{{ asset('images/iris-hero.webp') }}" alt="Urban overpass" class="w-full h-auto object-cover" />
+                <img src="{{ asset('images/iris-hero.webp') }}" alt="Urban overpass"
+                    class="w-full h-auto object-cover" />
             </div>
             <div class="aspect-w-4 aspect-h-5">
-                <img src="{{ asset('images/iris-hero.webp') }}" alt="Urban overpass" class="w-full h-auto object-cover" />
+                <img src="{{ asset('images/iris-hero.webp') }}" alt="Urban overpass"
+                    class="w-full h-auto object-cover" />
             </div>
             <div class="aspect-w-4 aspect-h-5">
-                <img src="{{ asset('images/iris-hero.webp') }}" alt="Urban overpass" class="w-full h-auto object-cover" />
+                <img src="{{ asset('images/iris-hero.webp') }}" alt="Urban overpass"
+                    class="w-full h-auto object-cover" />
             </div>
         @endforelse
 
