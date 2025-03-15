@@ -32,7 +32,7 @@
                     <span class="help-block">{{ trans('cruds.service.fields.price_helper') }}</span>
                 </div>
                 <div class="form-group">
-                    <label class="required" for="featured_image">{{ trans('cruds.service.fields.featured_image') }}</label>
+                    <label for="featured_image">{{ trans('cruds.service.fields.featured_image') }}</label>
                     <div class="needsclick dropzone {{ $errors->has('featured_image') ? 'is-invalid' : '' }}"
                         id="featured_image-dropzone">
                     </div>
@@ -44,7 +44,7 @@
                     <span class="help-block">{{ trans('cruds.service.fields.featured_image_helper') }}</span>
                 </div>
                 <div class="form-group">
-                    <label for="about_us_description">Service Description</label>
+                    <label class="required" for="about_us_description">Service Description</label>
                     <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $service->description) }}</textarea>
                     @if($errors->has('description'))
                         <div class="invalid-feedback">
